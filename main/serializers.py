@@ -29,11 +29,17 @@ class SectionSerializer(serializers.ModelSerializer):
         model = Section
         fields = ['id','name','image','category']
 
+class CharacterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Characteristic
+        fields = '__all__'
+
 class ProductSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     images = ImageSerializer(many=True, read_only=True)
     section_name = serializers.CharField(source='section.name',read_only=True)
     avg_rating = serializers.FloatField(read_only=True)
+    characters = CharacterSerializer(many=True, read_only=True)
     class Meta:
         model = Product
-        fields = ('id','name','description','price','comments','avg_rating','images','section','section_name')
+        fields = ('id','name','description','price','comments','avg_rating','images','section','section_name','characters')

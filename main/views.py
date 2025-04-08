@@ -26,7 +26,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         cached_products = cache.get(cache_key)
         if cached_products:
             return cached_products
-        cached_products = Product.objects.annotate(avg_rating=Avg('comments__rating')).prefetch_related('images', 'comments').select_related('section')
+        cached_products = Product.objects.annotate(avg_rating=Avg('comments__rating')).prefetch_related('images', 'comments', 'characteristics').select_related('section')
         cache.set(cache_key, cached_products,timeout=60*3)
         print('cache ornatildi')
         return cached_products
