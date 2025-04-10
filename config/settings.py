@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_filters',
     'rest_framework_simplejwt.token_blacklist',
-    'rest_framework',]
+    'rest_framework',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -165,7 +168,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5,  # har bir sahifada nechta mahsulot bo‘lishini belgilaydi
+    'PAGE_SIZE': 5,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',# har bir sahifada nechta mahsulot bo‘lishini belgilaydi
 }
 
 

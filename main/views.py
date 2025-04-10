@@ -6,7 +6,7 @@ from django.core.cache import cache
 from rest_framework import viewsets
 from .filters import ProductFilter
 from django.db.models import Avg
-from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -19,7 +19,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.request.user.is_superuser:
             return [AllowAny()]
         else:
-            return [IsAuthenticatedOrReadOnly()]
+            return [AllowAny()]
 
     def get_queryset(self):
         cache_key = 'products'
@@ -40,7 +40,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
       if self.request.method in permissions.SAFE_METHODS:
         return [AllowAny()]
       else:
-        return [IsAuthenticatedOrReadOnly()]
+        return [IsAuthenticated()]
 
     def get_queryset(self):
         cache_key = 'categories'
